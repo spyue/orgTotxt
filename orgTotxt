@@ -1,0 +1,30 @@
+import sys
+import os
+
+def replace_stars_with_spaces(input_path) :
+    try: 
+        with open(input_path, "r") as file : 
+            content = file.read()
+
+        updated_content = content.replace("*", " ")
+
+        base_name = os.path.splitext(os.path.basename(input_path))[0]
+        output_path = os.path.join(os.path.dirname(input_path), f"{base_name}.txt")
+        
+        
+        with open(output_path, "w") as file :
+            file.write(updated_content)
+
+        print (f"File successfully updated as '{output_path}'")
+    except FileNotFoundError : 
+        print (f"Error -> file '{input_path}' not found")
+    except Exception as e:
+        print (f"Error: {e}") 
+
+if __name__ == "__main__" :
+    print ("script started")
+    if len(sys.argv) != 2 :
+        print ("Usage: python replace_stars.py <input_file>")
+    else :
+        input_file = sys.argv[1]
+        replace_stars_with_spaces(input_file)
